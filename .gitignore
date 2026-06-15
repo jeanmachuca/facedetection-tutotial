@@ -1,0 +1,38 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.swf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Models (large files)
+*.pb
+*.tflite
+*.onnx
+models/
+
+# Media
+*.mp4
+*.webm
+*.wav
