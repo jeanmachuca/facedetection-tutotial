@@ -184,10 +184,10 @@ The legacy `trainedData.php` cannot be directly used in modern systems, but the 
 
 Detailed guides in `/docs`:
 
-1. **01-legacy-architecture.md** - Flash Player deep dive, Flex framework, FaceRecognitionLib, PHP backend
-2. **02-modern-architecture.md** - WebRTC, Canvas API, TensorFlow.js, face-api.js, MediaPipe
-3. **03-training-data-guide.md** - Legacy dataset analysis, migration process, modern data format, best practices
-4. **04-generating-new-training-data.md** - Three approaches to add new people: legacy archival, modern web app, and Node.js pipeline
+1. **[01-legacy-architecture.md](docs/01-legacy-architecture.md)** - Flash Player deep dive, Flex framework, FaceRecognitionLib, PHP backend
+2. **[02-modern-architecture.md](docs/02-modern-architecture.md)** - WebRTC, Canvas API, TensorFlow.js, face-api.js, MediaPipe
+3. **[03-training-data-guide.md](docs/03-training-data-guide.md)** - Legacy dataset analysis, migration process, modern data format, best practices
+4. **[04-generating-new-training-data.md](docs/04-generating-new-training-data.md)** - Three approaches to add new people: legacy archival, modern web app, and Node.js pipeline
 
 ## Examples
 
