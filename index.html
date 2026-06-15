@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Detection Tutorial: Flash vs Modern</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+        h1 { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { color: #94a3b8; margin-top: 28px; }
+        a { color: #60a5fa; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .card { background: #1e293b; border-radius: 8px; padding: 16px 20px; margin: 10px 0; }
+        .card a { display: block; font-weight: 600; margin-bottom: 4px; }
+        .card p { color: #94a3b8; font-size: 0.9rem; margin: 0; }
+        .btn { display: inline-block; padding: 10px 20px; background: #3b82f6; color: #fff; text-decoration: none; border-radius: 8px; margin: 8px 4px; }
+        .btn:hover { opacity: 0.9; }
+        .btn-green { background: #22c55e; }
+        .btn-purple { background: #8b5cf6; }
+    </style>
+</head>
+<body>
+    <h1>Face Detection Tutorial</h1>
+    <p>Legacy Flash vs Modern Browser Approaches — a comprehensive guide.</p>
+
+    <p>
+        <a class="btn" href="README.md">Read the Tutorial</a>
+        <a class="btn btn-green" href="https://jeanmachuca.github.io/modern-face-detection-app-example/">Try the Modern App</a>
+        <a class="btn btn-purple" href="https://github.com/jeanmachuca/facedetection-tutotial">GitHub</a>
+    </p>
+
+    <h2>Documentation</h2>
+    <div class="card">
+        <a href="docs/01-legacy-architecture.md">01-legacy-architecture.md</a>
+        <p>Flash Player deep dive, Flex framework, FaceRecognitionLib, PHP backend</p>
+    </div>
+    <div class="card">
+        <a href="docs/02-modern-architecture.md">02-modern-architecture.md</a>
+        <p>WebRTC, Canvas API, TensorFlow.js, face-api.js, MediaPipe</p>
+    </div>
+    <div class="card">
+        <a href="docs/03-training-data-guide.md">03-training-data-guide.md</a>
+        <p>Legacy dataset analysis, migration process, modern data format</p>
+    </div>
+    <div class="card">
+        <a href="docs/04-generating-new-training-data.md">04-generating-new-training-data.md</a>
+        <p>Three approaches to add new people: legacy archival, modern web app, and Node.js pipeline</p>
+    </div>
+
+    <h2>Related Projects</h2>
+    <ul>
+        <li><a href="https://jeanmachuca.github.io/modern-face-detection-app-example/">modern-face-detection-app-example</a> — Working app using WebRTC + face-api.js</li>
+        <li><a href="https://jeanmachuca.github.io/facerecognitioninbrowser/">facerecognitioninbrowser</a> — Original Flash project (legacy)</li>
+    </ul>
+</body>
+</html>
