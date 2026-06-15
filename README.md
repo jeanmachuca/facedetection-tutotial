@@ -240,8 +240,8 @@ Working code examples in `/examples`:
 
 ## Related Projects
 
-- **[modern-face-detection-app-example](https://github.com/jeanmachuca/modern-face-detection-app-example)** - Full working app using this tutorial's concepts
-- **[facerecognitioninbrowser](https://github.com/jeanmachuca/facerecognitioninbrowser)** - Original Flash-based project (legacy)
+- **[modern-face-detection-app-example](https://github.com/jeanmachuca/modern-face-detection-app-example)** — Full working app ([live demo](https://jeanmachuca.github.io/modern-face-detection-app-example/))
+- **[facerecognitioninbrowser](https://github.com/jeanmachuca/facerecognitioninbrowser)** — Original Flash project ([live](https://jeanmachuca.github.io/facerecognitioninbrowser/))
 
 ## License
 
