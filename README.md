@@ -187,6 +187,7 @@ Detailed guides in `/docs`:
 1. **01-legacy-architecture.md** - Flash Player deep dive, Flex framework, FaceRecognitionLib, PHP backend
 2. **02-modern-architecture.md** - WebRTC, Canvas API, TensorFlow.js, face-api.js, MediaPipe
 3. **03-training-data-guide.md** - Legacy dataset analysis, migration process, modern data format, best practices
+4. **04-generating-new-training-data.md** - Three approaches to add new people: legacy archival, modern web app, and Node.js pipeline
 
 ## Examples
 
