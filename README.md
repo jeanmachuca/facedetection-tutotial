@@ -1,5 +1,7 @@
 # Face Detection Tutorial: Legacy Flash vs Modern Browser Approaches
 
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-d81b60)](https://github.com/sponsors/jeanmachuca)
+
 A comprehensive guide comparing two generations of face detection technology in web browsers, with working examples and migration strategies.
 
 ## Overview
