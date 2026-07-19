@@ -9,7 +9,7 @@ This tutorial explores the evolution of face detection from the Flash era (2005-
 **You'll learn:**
 - Legacy Approach: Adobe Flex + ActionScript 3 + Flash Player
 - Modern Approach: WebRTC + TensorFlow.js + Web APIs
-- How to migrate legacy training data to modern systems
+- Real-time face training from live camera capture
 - Performance comparisons and best practices
 
 ## Table of Contents
@@ -161,7 +161,9 @@ function captureFrame() {
 
 **Legacy**: JPEG Images → Flash App → Extract Haar Features → Serialize to Binary → XML/HTTP POST → PHP Server → Store as trainedData.php
 
-**Modern**: JPEG Images → Canvas Load → TensorFlow.js CNN → Generate 128-dim Embeddings → JSON Array → Storage (IndexedDB/Backend/JSON file)
+**Modern**: Real-time camera capture → Canvas frame grab → TensorFlow.js CNN → Generate 128-dim Embeddings → In-memory storage → Live recognition
+
+Alternatively: JPEG Images → Canvas Load → Batch processing → JSON export
 
 ## Training Data Evolution
 
@@ -179,6 +181,18 @@ Legacy Format: 493 KB (trainedData.php - not portable)
 ```
 
 The legacy `trainedData.php` cannot be directly used in modern systems, but the original images can be re-processed through modern pipelines.
+
+### Modern: Real-Time Training
+
+The modern app no longer requires static JPEG images. Instead, face samples are captured directly from the live camera:
+
+1. Enter a person's name
+2. Click "Capture Face" to snapshot the current camera frame
+3. The app extracts a 128-dimensional face descriptor via face-api.js
+4. Repeat (minimum 3 samples per person), then click "Save Person"
+5. Recognition works immediately — no restart needed
+
+This approach is faster, more flexible, and eliminates file management. See [04-generating-new-training-data.md](docs/04-generating-new-training-data.md) for details.
 
 ## Documentation
 
@@ -230,17 +244,16 @@ Working code examples in `/examples`:
 
 - [ ] Choose your ML library (face-api.js vs MediaPipe)
 - [ ] Set up WebRTC camera access
-- [ ] Load training images
-- [ ] Extract embeddings
-- [ ] Store in JSON format
-- [ ] Implement comparison logic
+- [ ] Implement real-time face capture UI
+- [ ] Implement face descriptor extraction (128-dim embeddings)
+- [ ] Build recognition with Euclidean distance matching
 - [ ] Test on target browsers
 - [ ] Optimize performance
 - [ ] Deploy to production
 
 ## Related Projects
 
-- **[modern-face-detection-app-example](https://github.com/jeanmachuca/modern-face-detection-app-example)** — Full working app ([live demo](https://jeanmachuca.github.io/modern-face-detection-app-example/))
+- **[modern-face-detection-app-example](https://github.com/jeanmachuca/modern-face-detection-app-example)** — Full working app with real-time camera training ([live demo](https://jeanmachuca.github.io/modern-face-detection-app-example/))
 - **[facerecognitioninbrowser](https://github.com/jeanmachuca/facerecognitioninbrowser)** — Original Flash project ([live](https://jeanmachuca.github.io/facerecognitioninbrowser/))
 
 ## License

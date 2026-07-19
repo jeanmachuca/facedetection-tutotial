@@ -44,47 +44,104 @@ Use a unique 2-3 letter prefix for each new person.
 
 ---
 
-## Approach 2: Use the Modern Web App (Recommended)
+## Approach 2: Use the Modern Web App — Real-Time Capture (Recommended)
 
-The `modern-face-detection-app-example` app can process new images into usable face embeddings without any backend. All processing happens in the browser.
+The `modern-face-detection-app-example` app supports real-time face training directly from the camera. No static images, no file management — just point, name, and capture.
+
+### How It Works
+
+The app captures face samples live from the webcam:
+
+1. You enter a person's name
+2. You click "Capture Face" to snapshot the current camera frame
+3. The app runs face-api.js on the frame: detect face → extract 68 landmarks → generate 128-dim descriptor
+4. The descriptor is stored in memory under the person's label
+5. Repeat until you have at least 3 samples, then click "Save Person"
+6. The live detection loop immediately recognizes saved people
 
 ### Step-by-step
 
-#### 1. Add images to the project
+#### 1. Start the app
 
 ```bash
-cp ~/new-faces/JD*.jpg \
-  /path/to/modern-face-detection-app-example/training-data/images/
-```
-
-#### 2. Register the new images in `src/app.js`
-
-Open `src/app.js` and add entries to the `TRAINING_IMAGES` array:
-
-```javascript
-const TRAINING_IMAGES = [
-    // ... existing entries ...
-    
-    // New person: JD
-    { path: 'training-data/images/JD1.jpg', label: 'JD' },
-    { path: 'training-data/images/JD2.jpg', label: 'JD' },
-    { path: 'training-data/images/JD3.jpg', label: 'JD' },
-];
-```
-
-#### 3. Run the app
-
-```bash
+cd /path/to/modern-face-detection-app-example
 npx serve .
 ```
 
-1. Click "Start Camera" (grant permission)
-2. Click "Train from Images" — the app loads each JPEG, detects the face, and extracts a 128-dimensional descriptor
-3. Point the camera at the new person — the app will recognize them and display their label with confidence
+Open the URL in your browser (Chrome/Firefox/Edge recommended).
 
-#### 4. Export the embeddings (optional)
+#### 2. Start the camera
 
-The descriptors exist in memory during the session. To persist them, you can add an export button or save to IndexedDB. See [Approach 3](#approach-3-build-a-standalone-training-pipeline-advanced) for a scripted approach.
+Click **"Start Camera"** and grant webcam permission. You'll see the live video feed with a face detection overlay.
+
+#### 3. Train a person
+
+1. Type the person's name into the **"Person Name"** field
+2. Position the person's face in the camera view
+3. Click **"Capture Face"** — a thumbnail of the captured frame appears in the gallery
+4. Repeat 2 more times (minimum 3 samples required)
+5. Vary the angle slightly between captures for better recognition
+6. Click **"Save Person"** — the person is now recognized in real time
+
+#### 4. Repeat for more people
+
+After saving, the name field clears. Enter the next person's name and repeat the capture process. The detection loop recognizes all saved people simultaneously.
+
+### Under the Hood
+
+When you click "Capture Face", this code runs:
+
+```javascript
+// 1. Grab current video frame onto offscreen canvas
+const canvas = document.createElement('canvas');
+canvas.width = videoElement.videoWidth;
+canvas.height = videoElement.videoHeight;
+canvas.getContext('2d').drawImage(videoElement, 0, 0);
+
+// 2. Detect face and extract 128-dim descriptor
+const descriptor = await detector.getDescriptor(canvas);
+
+// 3. Store under the person's label
+labeledDescriptors[label].push(descriptor);
+```
+
+Recognition uses Euclidean distance between the live descriptor and all stored descriptors:
+
+```javascript
+function recognize(descriptor, labeledDescriptors, threshold = 0.5) {
+    for (const [name, descriptors] of Object.entries(labeledDescriptors)) {
+        for (const ref of descriptors) {
+            const distance = faceapi.euclideanDistance(descriptor, ref);
+            if (distance < threshold) return { name, confidence: 1 - distance };
+        }
+    }
+    return null;
+}
+```
+
+### Advantages Over Static Image Training
+
+| Aspect | Static (old) | Real-Time Capture (new) |
+|--------|-------------|------------------------|
+| Setup | Copy JPEG files, edit code | Just open the app |
+| Speed | Process 21 images on load | Capture 3-5 frames in seconds |
+| Flexibility | Fixed dataset | Train anyone, anywhere |
+| Accuracy | Depends on image quality | Depends on camera quality |
+| Persistence | Files on disk | In-memory (session only) |
+
+### Tips for Better Recognition
+
+- Capture in the same lighting you'll use for recognition
+- Vary the angle slightly (front, slight left, slight right)
+- Ensure the face is well-lit and clearly visible
+- Capture at least 5 samples per person for more reliable matching
+- Use SSD MobileNetV1 (default) for best accuracy
+
+### Limitations
+
+- Training data is session-only (lost on page reload)
+- No export/import mechanism built in (see [Approach 3](#approach-3-build-a-standalone-training-pipeline-advanced) for persistence)
+- Minimum 3 samples per person enforced
 
 ---
 
@@ -275,7 +332,7 @@ SM1.jpg,SM,2026-06-16,bright,frontal,outdoor
 | Your goal | Use this approach |
 |-----------|-----------------|
 | Archive images for historical reference | Approach 1 (add JPEGs to legacy repo) |
-| Actually run face recognition on new people | Approach 2 (modern web app) |
+| Train new people quickly in the browser | Approach 2 (real-time camera capture) |
 | Batch-process 50+ images | Approach 3 (Node.js pipeline) |
 | Generate a portable JSON embedding file | Approach 3 (Node.js pipeline) |
 | Deploy to production | Approach 3 + JSON loading in app |

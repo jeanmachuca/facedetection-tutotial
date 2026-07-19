@@ -63,6 +63,46 @@ function findMatch(descriptor, labeledDescriptors, threshold = 0.6) {
 }
 ```
 
+## Alternative: Real-Time Camera Capture
+
+Instead of processing static JPEG images, the modern app supports capturing face samples directly from the live camera feed. This is faster and more flexible — no file management needed.
+
+### How It Works
+
+1. Enter a person's name
+2. Click "Capture Face" — the current video frame is grabbed onto an offscreen canvas
+3. face-api.js detects the face, extracts landmarks, and generates a 128-dim descriptor
+4. The descriptor is stored under the person's name in memory
+5. Repeat until you have 3+ samples, then click "Save Person"
+
+### Capture Code
+
+```javascript
+// Grab video frame to canvas
+const canvas = document.createElement('canvas');
+canvas.width = videoElement.videoWidth;
+canvas.height = videoElement.videoHeight;
+canvas.getContext('2d').drawImage(videoElement, 0, 0);
+
+// Extract face descriptor
+const descriptor = await faceapi
+    .detectSingleFace(canvas)
+    .withFaceLandmarks()
+    .withFaceDescriptor();
+
+// Store under label
+labeledDescriptors[name].push(descriptor);
+```
+
+### When to Use Each Approach
+
+| Scenario | Use |
+|----------|-----|
+| Have existing JPEG images | Static image processing (above) |
+| Train someone in person | Real-time camera capture |
+| Batch-process hundreds of images | Node.js pipeline (see 04-generating-new-training-data.md) |
+| Quick demo or testing | Real-time camera capture |
+
 ## Modern Data Format
 
 Use JSON for structured storage of face descriptors:
