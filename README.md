@@ -255,6 +255,7 @@ Working code examples in `/examples`:
 
 ## Related Projects
 
+- **[face-gestures-detection-tutorial](https://github.com/jeanmachuca/face-gestures-detection-tutorial)** — Gesture detection tutorial: expressions, hand gestures, eye tracking, head gestures ([live demo](https://jeanmachuca.github.io/modern-face-gestures-detection-app-example/))
 - **[modern-face-detection-app-example](https://github.com/jeanmachuca/modern-face-detection-app-example)** — Full working app with real-time camera training ([live demo](https://jeanmachuca.github.io/modern-face-detection-app-example/))
 - **[facerecognitioninbrowser](https://github.com/jeanmachuca/facerecognitioninbrowser)** — Original Flash project ([live](https://jeanmachuca.github.io/facerecognitioninbrowser/))
 
